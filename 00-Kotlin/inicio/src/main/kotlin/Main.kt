@@ -63,6 +63,29 @@ fun main(){
     println(Suma.elevarAlCuadrado(2))
     println(Suma.historialSumas)
 
+    // Arreglos
+    // Estaticos
+    val arregloEstatico: Array<Int> = arrayOf<Int>(1,2,3)
+    println(arregloEstatico);
+    // Dinamicos
+    val arregloDinamico: ArrayList<Int> = arrayListOf<Int>(
+        1,2,3,4,5,6,7,8,9,10
+    )
+    println(arregloDinamico)
+    arregloDinamico.add(11)
+    arregloDinamico.add(12)
+    println(arregloDinamico)
+
+    // FOR EACH = > Unit
+    // Iterar un arreglo
+    val respuestaForEach: Unit = arregloDinamico
+        .forEach{ valorActual: Int ->
+            println("Valor actual: ${valorActual}");
+        }
+    // "it" (en ingles "eso") significa el elemento iterado
+    arregloDinamico.forEach{ println("Valor Actual (it): ${it}")}
+
+
 }// Termina funcion Main
 
 // void -> Unit
