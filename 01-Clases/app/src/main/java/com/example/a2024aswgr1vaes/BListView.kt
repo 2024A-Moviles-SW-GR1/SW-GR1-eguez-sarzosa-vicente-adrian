@@ -97,7 +97,6 @@ class BListView : AppCompatActivity() {
         )
         val dialogo = builder.create()
         dialogo.show()
-
     }
 
 
@@ -130,7 +129,7 @@ class BListView : AppCompatActivity() {
     }
     fun mostrarSnackbar(texto:String){
         val snack = Snackbar.make(
-            findViewById(R.id.cl_ciclo_vida),
+            findViewById(R.id.cl_blist_view),
             texto,
             Snackbar.LENGTH_INDEFINITE
         )
