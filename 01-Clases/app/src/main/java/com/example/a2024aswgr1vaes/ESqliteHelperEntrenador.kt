@@ -69,7 +69,7 @@ class ESqliteHelperEntrenador(
         val parametrosConsultaActualizar = arrayOf( id.toString())
         val resultadoActualizacion = conexionEscritura
             .update(
-                "ENTENADOR",
+                "ENTRENADOR",
                 valoresAActualizar, // nombre= Adrian, descripcion=B
                 "id=?", // id=1
                 parametrosConsultaActualizar // [1]
@@ -77,7 +77,40 @@ class ESqliteHelperEntrenador(
         conexionEscritura.close()
         return if(resultadoActualizacion.toInt()==-1) false else true
     }
-
+    fun consultarEntrenadorPorID(id:Int):BEntrenador?{
+        val baseDatosLectura = readableDatabase
+        val scriptConsultaLectura = """
+            SELECT * FROM ENTRENADOR WHERE ID = ?
+        """.trimIndent()
+        val arregloParametrosConsultaLectura = arrayOf(
+            id.toString()
+        )
+        val resultadoConsultaLectura = baseDatosLectura
+            .rawQuery(
+                scriptConsultaLectura,
+                arregloParametrosConsultaLectura
+            )
+        // Logica busqueda
+        // Recibimos un arreglo (puede ser nulo)
+        // Llenar un arreglo de Entrenadores
+        // Si esta vacio, el arreglo no tiene elementos
+        val existeAlMenosUno = resultadoConsultaLectura
+            .moveToFirst()
+        val arregloRespuesta = arrayListOf<BEntrenador>()
+        if(existeAlMenosUno){
+            do{
+                val entrenador = BEntrenador(
+                    resultadoConsultaLectura.getInt(0),
+                    resultadoConsultaLectura.getString(1),
+                    resultadoConsultaLectura.getString(2)
+                )
+                arregloRespuesta.add(entrenador)
+            }while(resultadoConsultaLectura.moveToNext())
+        }
+        resultadoConsultaLectura.close()
+        baseDatosLectura.close()
+        return if(arregloRespuesta.size > 0) arregloRespuesta[0] else null
+    }
 
 
 
